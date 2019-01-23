@@ -1,4 +1,5 @@
 ﻿using System;
+using BenchmarkDotNet.Running;
 
 namespace ConcurrentThreadsBenchmark
 {
@@ -6,7 +7,15 @@ namespace ConcurrentThreadsBenchmark
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
+            Console.WriteLine("Bechmark with Concurrent Threads");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            var summary = BenchmarkRunner.Run<Benchmarks>();
+
+            Console.WriteLine("Finished");
+
+            Console.ReadLine();
         }
     }
 }
