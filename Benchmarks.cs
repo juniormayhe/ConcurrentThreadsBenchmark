@@ -1,17 +1,23 @@
-﻿using System.Collections.Generic;
-using BenchmarkDotNet.Attributes;
-using ConcurrentThreadsBenchmark.Models;
-using AutoFixture;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
-using System;
 using System.Threading;
+using System.Threading.Tasks;
+
+using AutoFixture;
+
+using BenchmarkDotNet.Attributes;
+
+using ConcurrentThreadsBenchmark.Models;
+
 using Polly;
 
 namespace ConcurrentThreadsBenchmark
 {
-    [CoreJob, MemoryDiagnoser, RankColumn]
+
+    [CoreJob]
+    [MemoryDiagnoser, RankColumn]
     public class Benchmarks
     {
         private readonly int MAX_THREADS = 8;
@@ -20,8 +26,14 @@ namespace ConcurrentThreadsBenchmark
 
         public Benchmarks()
         {
+            
+        }
+
+        [GlobalSetup]
+        public void Setup()
+        {
             this.fixture = new Fixture();
-            this.orders = fixture.CreateMany<Order>(10);
+            this.orders = fixture.CreateMany<Order>(100000);
         }
 
         /// <summary>
@@ -91,7 +103,7 @@ namespace ConcurrentThreadsBenchmark
             {
                 double orderTotal = order.OrderItems.Sum(x => x.ItemValue);
                 Console.WriteLine($"Total of order {order.Id} is {orderTotal}");
-            });             
+            });
         }
 
         /// <summary>

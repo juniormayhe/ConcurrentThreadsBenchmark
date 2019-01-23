@@ -7,15 +7,10 @@ namespace ConcurrentThreadsBenchmark
     {
         static void Main(string[] args)
         {
-            
             Console.WriteLine("Bechmark with Concurrent Threads");
 
             Console.ForegroundColor = ConsoleColor.Green;
-            var summary = BenchmarkRunner.Run<Benchmarks>();
-
-            Console.WriteLine("Finished");
-
-            Console.ReadLine();
+            var summary = BenchmarkRunner.Run<Benchmarks>();   
         }
     }
 }
